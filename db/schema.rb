@@ -12,26 +12,29 @@
 
 ActiveRecord::Schema.define(version: 5) do
 
-  create_table "producers", force: :cascade do |t|
+  create_table "drafts", force: :cascade do |t|
     t.integer "script_id"
+    t.integer "writer_id"
+  end
+
+  create_table "producers", force: :cascade do |t|
+    t.integer "user_id"
   end
 
   create_table "scripts", force: :cascade do |t|
     t.string  "working_title"
-    t.integer "draft"
     t.integer "producer_id"
-    t.integer "writer_id"
+    t.integer "draft_id"
     t.boolean "greenlit"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string  "name"
-    t.integer "writer_id"
-    t.integer "producer_id"
+    t.string "name"
   end
 
   create_table "writers", force: :cascade do |t|
-    t.integer "script_id"
+    t.integer "user_id"
+    t.integer "draft_id"
   end
 
 end
