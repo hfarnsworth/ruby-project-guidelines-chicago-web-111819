@@ -1,0 +1,13 @@
+Methods
+=======
+-- User
+create_role(role_type)
+
+-- Writer
+create_script(script_name)
+
+-- Producer
+buy_script(script_name)
+
+-- Script
+create_draft(script_id)
