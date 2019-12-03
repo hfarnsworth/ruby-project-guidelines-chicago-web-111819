@@ -1,6 +1,7 @@
 class Script < ActiveRecord::Base
-    has_many :writers
+    has_many :drafts
     has_many :producers
-    has_many :users, through: :writers
+    has_many :writers, through: :drafts
     has_many :users, through: :producers
+    has_many :users, through: :writers
 end
