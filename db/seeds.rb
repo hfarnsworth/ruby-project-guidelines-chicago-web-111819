@@ -15,32 +15,27 @@ Writer.destroy_all
 
 
 # -- Users [ User(name) ]
+writers, producers = [], []
+for k in 1..10 do
+    writers << User.create(name: "Writer #{k}")
+end
+
 for k in 1..5 do
-    n = "User #{k}"
-    User.create(name: n)
+    producers << User.create(name: "Producer #{k}")
 end
 
 # -- Producers [ Producer(user_id) ]
-5.times do
-    ui = User.all.sample.id
-    Producer.create(user_id: ui)
-end
+producers.each { |p| Producer.create(user_id: p.id) }
 
 # -- Writers [ Writer(user_id) ]
-5.times do
-    u_i = User.all.sample.id
-    Writer.create(user_id: u_i)
-end
+writers.each { |w| Writer.create(user_id: w.id) }
 
 # -- Scripts [ Script(name, working_title, producer_id, greenlit) ]
-for idx in 1..8 do
-    p_i = Producer.all.sample.id
-    gl = (idx % 2 == 0) ? false : true
+for idx in 1..10 do
     attrs = {
         name: "Script #{idx}",
         working_title: "Working title #{idx}",
-        producer_id: p_i,
-        greenlit: gl
+        greenlit: false
     }
     Script.create(attrs)
 end
