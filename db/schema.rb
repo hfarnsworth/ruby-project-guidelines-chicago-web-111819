@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 5) do
+ActiveRecord::Schema.define(version: 6) do
 
   create_table "drafts", force: :cascade do |t|
     t.integer "script_id"
@@ -22,10 +22,13 @@ ActiveRecord::Schema.define(version: 5) do
   end
 
   create_table "scripts", force: :cascade do |t|
-    t.string  "name"
+    t.string  "project_name"
     t.string  "working_title"
     t.integer "producer_id"
     t.boolean "greenlit"
+    t.string  "genre"
+    t.string  "description"
+    t.integer "price"
   end
 
   create_table "users", force: :cascade do |t|
