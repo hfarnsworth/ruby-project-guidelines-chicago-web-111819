@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(version: 5) do
     t.string  "name"
     t.string  "working_title"
     t.integer "producer_id"
-    t.integer "draft_id"
     t.boolean "greenlit"
   end
 
