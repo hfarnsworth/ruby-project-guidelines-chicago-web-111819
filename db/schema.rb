@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(version: 5) do
   end
 
   create_table "scripts", force: :cascade do |t|
-    t.string  "name"
     t.string  "working_title"
     t.integer "producer_id"
     t.integer "draft_id"
@@ -35,6 +34,7 @@ ActiveRecord::Schema.define(version: 5) do
 
   create_table "writers", force: :cascade do |t|
     t.integer "user_id"
+    t.integer "draft_id"
   end
 
 end
