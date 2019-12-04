@@ -1,9 +1,3 @@
-require_relative '../app/models/draft.rb'
-require_relative '../app/models/producer.rb'
-require_relative '../app/models/script.rb'
-require_relative '../app/models/user.rb'
-require_relative '../app/models/writer.rb'
-
 
 ActiveRecord::Base.logger = Logger.new(STDOUT)
 
