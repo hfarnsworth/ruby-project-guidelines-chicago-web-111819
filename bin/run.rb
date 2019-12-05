@@ -6,7 +6,7 @@ welcome
 username = enter_username
 
 if User.get_user(username)
-    user = get_user(username)
+    user = User.get_user(username)
     puts "We found you!"
     if Writer.where(user_id: user.id).exists?
         write_true = check_writer
@@ -66,10 +66,10 @@ else
     end
 end
 
-if menu == 'producer'
-    producer_menu
-elsif menu == 'writer'
-    writer_menu
-else
-    cut_program
-end
+# if menu == 'producer'
+#     producer_menu(writer)
+# elsif menu == 'writer'
+#     writer_menu(producer)
+# else
+#     cut_program
+# end
