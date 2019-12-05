@@ -9,12 +9,12 @@ class User < ActiveRecord::Base
 
     # acts on self to create new writer object linked to self.id
     def new_writer
-        self.writer.create(user_id: self.id)
+        Writer.create(user_id: self.id)
     end
 
     # acts on self to create new producer object linked to self.id
     def new_producer
-        self.producer.create(user_id: self.id)
+        Producer.create(user_id: self.id)
     end
 
 end
