@@ -11,4 +11,55 @@ class Script < ActiveRecord::Base
         self.where(:greenlit => [false, nil])
     end
 
+    # creates a new draft, meant to be called by either Producer or Writer, 
+    # new writer can be added here, through CLI I will either input a new writer, 
+    # or find the old writer, when adding a new draft, also, through this method, 
+    # should be able to update Script instance's working_title if provided
+    def add_draft(writer, w_title = nil)
+        self.drafts.create(script_id: self.id, writer_id: writer.id)
+
+        # update script's working title if changed and/or provided
+        if not_nil(w_title) && not_empty(w_title)
+            self.update(working_title: w_title)
+        end
+    end
+
+    # finds all scripts which match the genre search term
+    # (if possible, return genre matches by first 3 letters if exact match not found)
+    def self.genre_search(searched_genre)
+        genre_ci = searched_genre.downcase
+        self.where("lower(genre) = ? OR lower(substr(genre, 1, 3)) = ?", genre_ci, genre_ci[0..3])
+    end
+
+    # makes a nice puts string out of project_name, working_title, 
+    # description, genre, drafts and price values for use in the CLI
+    def pitch
+        pitch_str = <<-PITCH
+            Project name: #{self.project_name}
+            Working title: #{self.working_title}
+            Genre: #{self.genre}
+            Price: #{self.price}
+            Draft no: #{draft_count}
+            Description:
+            #{self.description}
+        PITCH
+
+        pitch_str
+    end
+
+    def draft_count
+        self.drafts.length
+    end
+
+    # === helper methods ===
+    def not_nil(arg)
+        puts "#{arg} not nil"
+        return !arg.nil?
+    end
+
+    def not_empty(arg)
+        puts "#{arg} not empty"
+        return !arg.to_s.strip.empty?
+    end
+
 end
