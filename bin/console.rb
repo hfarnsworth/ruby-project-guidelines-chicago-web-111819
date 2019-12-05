@@ -53,7 +53,7 @@ end
 def neither_p_nor_w
     puts "Somehow, you are a User but haven't yet created a role for yourself"
     puts "Would you like to create a Producer or a Writer? (p = producer, w = writer)"
-    get.chomp.downcase
+    gets.chomp.downcase
 end
 
 def cut_program
