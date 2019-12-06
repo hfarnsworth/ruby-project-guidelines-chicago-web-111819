@@ -66,10 +66,22 @@ else
     end
 end
 
-# if menu == 'producer'
-#     producer_menu(writer)
-# elsif menu == 'writer'
-#     writer_menu(producer)
-# else
-#     cut_program
-# end
+if menu == 'producer'
+    producer_menu(producer)
+elsif menu == 'writer'
+    yes_or_no = create_script(writer)
+    if yes_or_no == 'y'
+        project_name = enter_project
+        working_title = enter_working_title
+        genre = enter_genre
+        description = enter_description
+        price = enter_price
+        writer.new_script(project_name, working_title, genre, description, price)
+        print writer.scripts.last.pitch
+        script_created
+    end
+
+
+else
+    cut_program
+end

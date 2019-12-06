@@ -1,5 +1,5 @@
 
-# ActiveRecord::Base.logger = Logger.new(STDOUT)
+ActiveRecord::Base.logger = nil
 
 Draft.destroy_all
 Producer.destroy_all
