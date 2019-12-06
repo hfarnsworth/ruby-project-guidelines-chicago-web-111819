@@ -31,6 +31,13 @@ class Script < ActiveRecord::Base
         self.where("lower(genre) = ? OR lower(substr(genre, 1, 3)) = ?", genre_ci, genre_ci[0..3])
     end
 
+    def self.display_scripts
+        self.buyable_scripts.order(:project_name).each_with_index { |s, i|
+            n = i + 1
+            puts "#{n}. #{s.working_title}"
+        }
+    end
+
     # makes a nice puts string out of project_name, working_title, 
     # description, genre, drafts and price values for use in the CLI
     def pitch
@@ -53,12 +60,10 @@ class Script < ActiveRecord::Base
 
     # === helper methods ===
     def not_nil(arg)
-        puts "#{arg} not nil"
         return !arg.nil?
     end
 
     def not_empty(arg)
-        puts "#{arg} not empty"
         return !arg.to_s.strip.empty?
     end
 
