@@ -14,4 +14,15 @@ class Producer < ActiveRecord::Base
         end
     end
 
+    # removes producer from script and sets greenlit value back to false
+    def drop_script(script)
+        target_script = Script.find(script.id)
+        if target_script
+            target_script.update(producer_id: nil, greenlit: false)
+            return "Script successfully dropped!"
+        else
+            return "Oops, specified script not found!"
+        end
+    end
+
 end
