@@ -38,6 +38,13 @@ class Script < ActiveRecord::Base
         }
     end
 
+    def self.display_scripts_for(owner)
+        owner.scripts.order(:project_name).each_with_index { |s, i|
+            n = i + 1
+            puts "#{n}. #{s.working_title}"
+        }
+    end
+
     # makes a nice puts string out of project_name, working_title, 
     # description, genre, drafts and price values for use in the CLI
     def pitch
