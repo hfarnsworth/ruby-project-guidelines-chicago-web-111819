@@ -25,4 +25,11 @@ class Producer < ActiveRecord::Base
         end
     end
 
+    def owned_scripts
+        self.scripts.order(:project_name).each_with_index { |s, i|
+            n = i + 1
+            puts "#{n}. #{s.working_title}"
+        }
+    end
+
 end
