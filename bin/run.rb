@@ -4,6 +4,8 @@ require_relative 'console.rb'
 
 welcome
 username = enter_username
+writer = nil
+producer = nil
 
 if User.get_user(username)
     user = User.get_user(username)
@@ -11,7 +13,7 @@ if User.get_user(username)
     if Writer.where(user_id: user.id).exists?
         write_true = check_writer
         if write_true
-            writer = Writer.where(user_id: user.id)
+            writer = Writer.find_by(user_id: user.id)
             menu = 'writer'
         elsif !write_true
             puts "then you wanna be a producer too? (y/exit)"
@@ -26,7 +28,7 @@ if User.get_user(username)
     elsif Producer.where(user_id: user.id).exists?
         producer_true = check_producer
         if producer_true
-            producer = Producer.where(user_id: user.id)
+            producer = Producer.find_by(user_id: user.id)
             menu = 'producer'
         elsif !producer_true
             puts "then you wanna be a writer too? (y/exit)"
@@ -53,11 +55,11 @@ if User.get_user(username)
     end
 else
     p_or_w = create_new
-    if create_new == 'p'
+    if p_or_w == 'p'
         user = User.create(name: username)
         producer = user.new_producer
         menu = 'producer'
-    elsif create_new == 'w'
+    elsif p_or_w == 'w'
         user = User.create(name: username)
         writer = user.new_writer
         menu = 'writer'
@@ -66,22 +68,113 @@ else
     end
 end
 
+clear_screen
+
+
 if menu == 'producer'
-    producer_menu(producer)
-elsif menu == 'writer'
-    yes_or_no = create_script(writer)
-    if yes_or_no == 'y'
-        project_name = enter_project
-        working_title = enter_working_title
-        genre = enter_genre
-        description = enter_description
-        price = enter_price
-        writer.new_script(project_name, working_title, genre, description, price)
-        print writer.scripts.last.pitch
-        script_created
+    if !producer.scripts.empty?
+        yes_or_no = prod_menu_scripts(producer)
+            if yes_or_no == 'y'
+                producer.owned_scripts
+            elsif yes_or_no == 'n'
+                clear_screen
+                i = 0
+                while i < 1 do
+                    shopping_menu
+                    Script.display_scripts
+                    number = choose_script
+                    number = number.to_i - 1
+                    s_max = Script.display_scripts.size
+                    if number < s_max && number >= 0
+                        script = Script.buyable_scripts[number]
+                        clear_screen
+                        script.pitch
+                        yn = buy_or_go_back 
+                        if yn == 'y'
+                            producer.buy_script(script)
+                            successful_exit
+                        else yn != 'n'
+                            cut_program
+                        end
+                    else
+                        cut_program
+                    end
+                end
+            else 
+                cut_program
+            end
+    else
+        clear_screen
+            i = 0
+            while i < 1 do
+                prod_menu_shop
+                Script.display_scripts
+                number = choose_script
+                number = number.to_i - 1
+                s_max = Script.display_scripts.size
+                if number < s_max && number >= 0
+                    script = Script.buyable_scripts[number]
+                    clear_screen
+                    script.pitch
+                    yn = buy_or_go_back 
+                    if yn == 'y'
+                        producer.buy_script(script)
+                        successful_exit
+                    else yn != 'n'
+                        cut_program
+                    end
+                else
+                    cut_program
+                end
+            end
     end
-
-
+elsif menu == 'writer'
+    cs
+    if !writer.scripts.empty?
+        puts "Welcome to the Writer Menu."
+        puts "We see that you have some scripts.  Would you like to see them? (y/n)"
+        yes_or_no = gets.chomp
+        if yes_or_no == 'y'
+            writer.written_scripts
+            successful_exit
+        elsif yes_or_no == 'n'
+            yn = create_script(writer)
+            if yn == 'y'
+                project_name = enter_project
+                working_title = enter_working_title
+                genre = enter_genre
+                description = enter_description
+                price = enter_price
+                writer.new_script(project_name, working_title, genre, description, price)
+                print writer.scripts.last.pitch
+                script_created
+                successful_exit
+            elsif yn == 'n'
+                try_again
+            else
+                cut_program
+            end
+        else
+            cut_program
+        end
+    else
+        yn = create_script(writer)
+        if yn == 'y'
+            project_name = enter_project
+            working_title = enter_working_title
+            genre = enter_genre
+            description = enter_description
+            price = enter_price
+            writer.new_script(project_name, working_title, genre, description, price)
+            print writer.scripts.last.pitch
+            script_created
+            successful_exit
+        elsif yn == 'n'
+            try_again
+        else
+            cut_program
+        end
+    end
 else
     cut_program
 end
