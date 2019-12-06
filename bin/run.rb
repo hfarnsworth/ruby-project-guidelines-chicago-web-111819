@@ -20,7 +20,7 @@ if User.get_user(username)
                 producer = user.new_producer
                 menu = 'producer'
             else
-                cut_program
+                try_again
             end
         end
     elsif Producer.where(user_id: user.id).exists?
@@ -35,7 +35,7 @@ if User.get_user(username)
                 writer = user.new_writer
                 menu = 'writer'
             else
-                cut_program
+                try_again
             end
         end
 

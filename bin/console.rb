@@ -107,3 +107,8 @@ def script_created
     puts "If you would like to do more please run the app again."
     exit!
 end
+
+def try_again
+    puts "Welp, you've run out of options then.  Have a good day!"
+    exit!
+end
