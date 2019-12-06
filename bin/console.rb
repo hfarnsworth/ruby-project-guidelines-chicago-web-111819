@@ -9,15 +9,15 @@ def welcome
      _____                       _    _____                  _   
     / ____|                     | |  / ____|                | |  
    | (___   ___ _ __ _   _ _ __ | |_| |     _ __ _   _ _ __ | |_ 
-    \\___\\ / __| '__| | | | '_\\| __| |    | '__| | | | '_\\| __|
+    \\___ \\ / __| '__| | | | '_ \\| __| |    | '__| | | | '_ \\| __|
     ____) | (__| |  | |_| | |_) | |_| |____| |  | |_| | |_) | |_ 
-   |_____/ \___|_|   \__, | .__/ \\__|\\_____|_|  \\__, | .__/\\__|
+   |_____/ \\___|_|   \\__, | .__/ \\__|\\_____|_|   \\__, | .__/ \\__|
                       __/ | |                     __/ | |        
-                     |___/|_|                    |___/|_|        
+                     |___/|_|                    |___/|_|             
     HEREDOC
-    puts "Welcome to"
+    puts "    Welcome to"
     puts banner
-    puts "(Where scripts go to die)"
+    puts "                          ( Where scripts go to die! )"
 end
 
 def enter_username
@@ -52,7 +52,7 @@ end
 
 def neither_p_nor_w
     puts "Somehow, you are a User but haven't yet created a role for yourself"
-    puts "Would you like to create a Producer or a Writer? (p = producer, w = writer)"
+    puts "Would you like to become a Producer or a Writer? (p = producer, w = writer)"
     gets.chomp.downcase
 end
 
@@ -64,4 +64,46 @@ end
 def create_new
     puts "Would you like to create a new user? (p = Producer, w = Writer)"
     gets.chomp.downcase
+end
+
+def producer_menu(producer)
+    puts "Hello #{producer.user.name}!  What would you like to do?"
+    puts "here is a list of current scripts!"
+end
+
+def create_script(writer)
+    puts "Hello #{writer.user.name}!  Would you like to create a new script? (y/n)"
+    gets.chomp.downcase
+end
+
+def enter_project
+    puts "You're ready to create a new script for our database!"
+    puts "What would you like to name your new project?"
+    gets.chomp
+end
+
+def enter_working_title
+    puts "What is your current working title for your first draft?"
+    gets.chomp
+end
+
+def enter_genre
+    puts "What is the genre of your new screenplay?"
+    gets.chomp
+end
+
+def enter_description
+    puts "How would you describe this script for potential buyers?"
+    gets.chomp
+end
+
+def enter_price
+    puts "How much are you looking to sell your script for?"
+    gets.chomp
+end
+
+def script_created
+    puts "Your script has been created, and added to the database!"
+    puts "If you would like to do more please run the app again."
+    exit!
 end
