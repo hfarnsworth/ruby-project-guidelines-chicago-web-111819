@@ -23,4 +23,13 @@ class Writer < ActiveRecord::Base
         self.scripts.create(script_attrs)
     end
 
+    # Deletes a writer's script
+    def self.delete_script(script)
+        # code here
+    end
+
+    def written_scripts
+        Script.display_scripts_for(self)
+    end
+
 end
