@@ -58,7 +58,7 @@ class Script < ActiveRecord::Base
             #{self.description}
         PITCH
 
-        pitch_str
+        puts pitch_str
     end
 
     def draft_count

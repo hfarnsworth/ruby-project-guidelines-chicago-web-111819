@@ -1,10 +1,17 @@
 # This is for method calls
 
 
+def clear_screen
+    #the magical string down below clears the terminal screen
+    puts "\e[H\e[2J"
+end
+
+def cs
+    clear_screen
+end
 
 def welcome
-    #clears terminal screen
-    puts "\e[H\e[2J"
+    clear_screen
     banner = <<-HEREDOC
      _____                       _    _____                  _   
     / ____|                     | |  / ____|                | |  
@@ -66,10 +73,10 @@ def create_new
     gets.chomp.downcase
 end
 
-def producer_menu(producer)
-    puts "Hello #{producer.user.name}!  What would you like to do?"
-    puts "here is a list of current scripts!"
-end
+# def producer_menu(producer)
+#     puts "Hello #{producer.user.name}!  What would you like to do?"
+#     puts "here is a list of current scripts!"
+# end
 
 def create_script(writer)
     puts "Hello #{writer.user.name}!  Would you like to create a new script? (y/n)"
@@ -111,4 +118,40 @@ end
 def try_again
     puts "Welp, you've run out of options then.  Have a good day!"
     exit!
+end
+
+def prod_menu_scripts(producer)
+    puts "Hello, #{producer.user.name}! Welcome to the Producer menu, we see that you have some scripts,"
+    puts "Would you like to look at your scripts? y/n" 
+    gets.chomp.downcase
+end
+
+def shopping_menu
+    puts "Ok well here are all the available scripts, waiting to be bought"
+end
+
+def choose_script
+    puts "The list above are the scripts available to buy, please enter the"
+    puts "number of the script you would like to see more info(no period) or choose 'q' to quit"
+    input = gets.chomp 
+    if input == 'q'
+        successful_exit
+    else
+        input
+    end
+end
+
+def buy_or_go_back
+    puts "Would you like to buy this script? (y/n)"
+    gets.chomp.downcase
+end
+
+def successful_exit
+    puts "Thanks for using ScryptCrypt, run again to do more stuff."
+    exit!
+end
+
+def prod_menu_shop
+    puts "Welcome to the Producer menu."
+    puts "You don't have any scripts yet, here is what is available"
 end
