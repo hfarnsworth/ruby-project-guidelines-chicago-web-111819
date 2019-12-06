@@ -25,7 +25,13 @@ class Writer < ActiveRecord::Base
 
     # Deletes a writer's script
     def self.delete_script(script)
-        # code here
+        target_script = self.scripts.find(script.id)
+        if target_script && target_script.drafts.writer_id
+            target_script.delete(script.id)
+            return "Script successfully deleted!"
+        else
+            return "Oops, you can't delete this script :("
+        end
     end
 
     def written_scripts
